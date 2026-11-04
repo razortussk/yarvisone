@@ -2,10 +2,9 @@ name: Reporte colombia.core
 
 on:
   schedule:
-    # Corre a las 12:00 UTC = 7:00 AM hora Colombia (COT, UTC-5)
-    # Días: lunes(1), miércoles(3), viernes(5)
+    # 12:00 UTC = 7:00 AM hora Colombia. Lunes, miércoles y viernes
     - cron: "0 12 * * 1,3,5"
-  workflow_dispatch: {}  # te permite correrlo manualmente desde GitHub cuando quieras probar
+  workflow_dispatch: {}
 
 jobs:
   reporte:
