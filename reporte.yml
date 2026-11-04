@@ -1,4 +1,4 @@
-name: Reporte colombia.core
+name: yarvisone/.github/workflows/reporte.yml
 
 on:
   schedule:
