@@ -197,7 +197,7 @@ Tu tarea:
             "max_tokens": 2500,
             "messages": [{"role": "user", "content": prompt}],
         },
-        timeout=60,
+        timeout=180,
     )
     response.raise_for_status()
     data = response.json()
@@ -302,7 +302,7 @@ Sé honesto si no encuentras nada con suficiente ángulo revelador."""
             "messages": [{"role": "user", "content": prompt}],
             "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": 3}],
         },
-        timeout=90,
+        timeout=240,
     )
     response.raise_for_status()
     data = response.json()
