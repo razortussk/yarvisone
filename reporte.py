@@ -17,6 +17,7 @@ se escriben directamente en este archivo):
 
 import os
 import time
+import random
 import feedparser
 import requests
 from datetime import datetime, timedelta, timezone
@@ -179,8 +180,8 @@ Tu tarea:
      y encontrar fotos o videos de apoyo
    - Fuente: el link original
 3. Si nada de la lista cruda encaja bien, dilo honestamente en vez de forzar opciones débiles.
-4. Máximo 5 ítems con esta estructura completa (mejor pocos y bien desarrollados que muchos
-   superficiales), ordenados por qué tan bueno es el ángulo. Texto plano, sin markdown de
+4. Máximo 4 ítems con esta estructura completa (mejor pocos y bien desarrollados que muchos
+   superficiales). Incluye como mucho 1 ítem de deportes/fútbol: la cuenta no es de deportes, ordenados por qué tan bueno es el ángulo. Texto plano, sin markdown de
    tablas, listo para Telegram.
 """
 
@@ -193,7 +194,7 @@ Tu tarea:
         },
         json={
             "model": "claude-sonnet-4-6",
-            "max_tokens": 1000,
+            "max_tokens": 2500,
             "messages": [{"role": "user", "content": prompt}],
         },
         timeout=60,
@@ -259,9 +260,8 @@ def explorar_tema_atemporal():
         "pueblos desaparecidos o abandonados en Colombia",
         "suicidios curiosos en la historia de Colombia",
     ]
-    # Rota el tema según el día del año, así cada corrida explora uno distinto
-    dia_del_anio = datetime.now().timetuple().tm_yday
-    tema = temas_prioritarios[dia_del_anio % len(temas_prioritarios)]
+    # Elige un tema al azar en cada corrida
+    tema = random.choice(temas_prioritarios)
 
     prompt = f"""Investiga el tema "{tema}" usando tu búsqueda web. Estoy armando contenido
 para @colombia.core, cuenta de Instagram de cultura/historia colombiana con estética de
@@ -298,9 +298,9 @@ Sé honesto si no encuentras nada con suficiente ángulo revelador."""
         },
         json={
             "model": "claude-sonnet-4-6",
-            "max_tokens": 1000,
+            "max_tokens": 2500,
             "messages": [{"role": "user", "content": prompt}],
-            "tools": [{"type": "web_search_20250305", "name": "web_search"}],
+            "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": 3}],
         },
         timeout=90,
     )
